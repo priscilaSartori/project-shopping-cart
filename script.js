@@ -1,6 +1,8 @@
 // Esse tipo de comentário que estão antes de todas as funções são chamados de JSdoc,
 // experimente passar o mouse sobre o nome das funções e verá que elas possuem descrições! 
 
+const { fetchProducts } = require("./helpers/fetchProducts");
+
 // Fique a vontade para modificar o código já escrito e criar suas próprias funções!
 
 /**
@@ -46,7 +48,7 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
-  return section;
+  console.log(section);
 };
 
 /**
@@ -72,4 +74,7 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
-window.onload = () => { };
+window.onload = async () => { 
+  const listaProdutos = await fetchProducts();
+  createProductItemElement(listaProdutos);
+};
