@@ -76,5 +76,5 @@ const createCartItemElement = ({ id, title, price }) => {
 
 window.onload = async () => { 
   const listaProdutos = await fetchProducts();
-  createProductItemElement(listaProdutos);
+  createProductItemElement(listaProdutos.forEach((produto) => produto));
 };
