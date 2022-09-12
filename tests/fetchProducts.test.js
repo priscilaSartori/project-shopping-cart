@@ -10,13 +10,17 @@ describe('1 - Teste a função fetchProducts', () => {
 
   it('Verifique se a função fetch foi chamada', async () => {
     await fetchProducts('computador');
-    expect(fetch).toHaveBeenCalled();
+    expect(fetch).toHaveBeenCalled();  
+  })
+
+  it('Verifique se a função fetch utiliza o endpoint "https://api.mercadolibre.com/sites/MLB/search?q=computador"', async () => {
+    await fetchProducts('computador');
     expect(fetch).toHaveBeenCalledWith('https://api.mercadolibre.com/sites/MLB/search?q=computador');  
   })
 
   it('Verifique se o retorno da função fetchProducts com o argumento (computador) é uma estrutura de dados igual ao objeto computadorSearch', async () => {
-    const prodComuputador = await fetchProducts('computador');
-    expect(prodComuputador).toEqual(computadorSearch);
+    const prodComputador = await fetchProducts('computador');
+    expect(prodComputador).toEqual(computadorSearch);
   })
 
   it('Verifique se, ao chamar a função fetchProducts sem argumento, retorna um erro com a mensagem: (You must provide an url)', async () => {
