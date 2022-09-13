@@ -58,6 +58,9 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  */
 const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
+// const cartItemClickListener = () => {
+// }
+
 /**
  * Função responsável por criar e retornar um item do carrinho.
  * @param {Object} product - Objeto do produto.
@@ -70,9 +73,18 @@ const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  li.addEventListener('click', cartItemClickListener);
+  // li.addEventListener('click', cartItemClickListener); // para remover do carrinho
+  
   return li;
 };
+
+const itemCarrinho = async (event) => {
+  const ol = document.querySelector('.cart__items');
+  const itemId = event.target.parentNode.firstChild.innerText;
+  const produto = await fetchItem(itemId);
+  const pushCarrinho = createCartItemElement(produto);
+  ol.appendChild(pushCarrinho);
+}
 
 const listaProdutos = async () => {
   const items = document.querySelector('.items');
@@ -84,10 +96,11 @@ const listaProdutos = async () => {
       thumbnail: prod.thumbnail,
     }
     const product = createProductItemElement(newProduct);
+    product.querySelector('.item__add').addEventListener('click',itemCarrinho);
     items.appendChild(product);
   })
 }
 
 window.onload = async () => { 
-  listaProdutos()
+  await listaProdutos();
 };

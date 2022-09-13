@@ -4,6 +4,7 @@ const fetchItem = async (ItemID) => {
     .then((response) => response.json())
     .then((dados) => dados)
     .catch((error) => error);
+    
     return result;
 };
 
