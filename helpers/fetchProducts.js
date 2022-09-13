@@ -4,6 +4,7 @@ const fetchProducts = async (QUERY) => {
     .then((response) => response.json())
     .then((dados) => dados)
     .catch((error) => error);
+    // console.log(result)
     return result;
 };
 
