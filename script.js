@@ -58,8 +58,11 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  */
 const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
-// const cartItemClickListener = () => {
-// }
+const cartItemClickListener = async (event) => {
+  console.log(event.target)
+  const ol = document.querySelector('.cart__items');
+  await ol.removeChild(event.target);
+}
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -73,7 +76,7 @@ const createCartItemElement = ({ id, title, price }) => {
   const li = document.createElement('li');
   li.className = 'cart__item';
   li.innerText = `ID: ${id} | TITLE: ${title} | PRICE: $${price}`;
-  // li.addEventListener('click', cartItemClickListener); // para remover do carrinho
+  li.addEventListener('click', cartItemClickListener);
   
   return li;
 };
