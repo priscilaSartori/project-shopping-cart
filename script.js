@@ -38,7 +38,6 @@ const createCustomElement = (element, className, innerText) => {
  * @returns {Element} Elemento de produto.
  */
 const createProductItemElement = ({ id, title, thumbnail }) => {
-  // console.log({ id, title, thumbnail })
   const section = document.createElement('section');
   section.className = 'item';
 
@@ -47,7 +46,6 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
   section.appendChild(createProductImageElement(thumbnail));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
 
-  // console.log(section);
   return section;
 };
 
@@ -56,13 +54,12 @@ const createProductItemElement = ({ id, title, thumbnail }) => {
  * @param {Element} product - Elemento do produto.
  * @returns {string} ID do produto.
  */
-const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
+// const getIdFromProductItem = (product) => product.querySelector('span.id').innerText;
 
 const cartItemClickListener = async (event) => {
-  console.log(event.target)
   const ol = document.querySelector('.cart__items');
   await ol.removeChild(event.target);
-}
+};
 
 /**
  * Função responsável por criar e retornar um item do carrinho.
@@ -81,13 +78,16 @@ const createCartItemElement = ({ id, title, price }) => {
   return li;
 };
 
+const carSave = [];
 const itemCarrinho = async (event) => {
   const ol = document.querySelector('.cart__items');
   const itemId = event.target.parentNode.firstChild.innerText;
   const produto = await fetchItem(itemId);
   const pushCarrinho = createCartItemElement(produto);
+  carSave.push(pushCarrinho.innerText);
   ol.appendChild(pushCarrinho);
-}
+  saveCartItems(carSave);
+};
 
 const listaProdutos = async () => {
   const items = document.querySelector('.items');
@@ -97,13 +97,26 @@ const listaProdutos = async () => {
       id: prod.id,
       title: prod.title,
       thumbnail: prod.thumbnail,
-    }
+    };
+
     const product = createProductItemElement(newProduct);
-    product.querySelector('.item__add').addEventListener('click',itemCarrinho);
+    product.querySelector('.item__add').addEventListener('click', itemCarrinho);
     items.appendChild(product);
-  })
-}
+  });
+};
+
+// const updateCart = async () => {
+//   const ol = document.querySelector('.cart__items');
+//   const get = await getSavedCartItems();
+//   get.map((item) => {
+//     const li = document.createElement('li');
+//     li.innerText = item;
+//     carSave.push(li.innerText);
+//     ol.appendChild(li);
+//   })
+// }
 
 window.onload = async () => { 
   await listaProdutos();
+  // updateCart();
 };
