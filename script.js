@@ -108,6 +108,12 @@ const listaProdutos = async () => {
   });
 };
 
+/** Função responsável por apagar todos os itens do carrinho */
+document.querySelector('.empty-cart').addEventListener('click', () => {
+  ol.innerHTML = '';
+  localStorage.clear();
+});
+
 window.onload = () => {
   listaProdutos();
   updateCart();
