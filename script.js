@@ -145,6 +145,8 @@ removeLoading();
 
 /** Função responsável por apagar todos os itens do carrinho */
 document.querySelector('.empty-cart').addEventListener('click', () => {
+cont = 0;
+totalPrice.innerText = `Total R$ ${cont}`;
 ol.innerHTML = '';
 localStorage.clear();
 });
